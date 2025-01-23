@@ -62,6 +62,7 @@ public class TankerService implements ITanker {
         String response = SocketUtils.sendRequest(officeHost, officePort, request);
         // response is the tankerId
         tankerId = Integer.parseInt(response);
+        System.out.println("Registered in office with id: " + tankerId);
     }
 
     /**

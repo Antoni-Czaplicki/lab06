@@ -31,6 +31,12 @@ public class TankerApp extends Application {
         Label officePortLabel = new Label("Office Port:");
         TextField officePortField = new TextField("7092");
 
+        Label sewageHostLabel = new Label("Sewage Host:");
+        TextField sewageHostField = new TextField("127.0.0.1");
+
+        Label sewagePortLabel = new Label("Sewage Port:");
+        TextField sewagePortField = new TextField("7091");
+
         Label capacityLabel = new Label("Tanker Capacity:");
         TextField capacityField = new TextField("100");
 
@@ -51,6 +57,7 @@ public class TankerApp extends Application {
                 // Create the service
                 tankerService = new TankerService(port, capacity);
                 tankerService.setOfficeConnection(officeHost, officePort);
+                tankerService.setSewageConnection(sewageHostField.getText(), Integer.parseInt(sewagePortField.getText()));
 
                 // Start server
                 tankerServer = new TankerServer(tankerService, this::log);
@@ -82,6 +89,8 @@ public class TankerApp extends Application {
         VBox root = new VBox(10, portLabel, portField,
                 officeHostLabel, officeHostField,
                 officePortLabel, officePortField,
+                sewageHostLabel, sewageHostField,
+                sewagePortLabel, sewagePortField,
                 capacityLabel, capacityField,
                 startButton, stopButton,
                 new Label("Logs:"), tankerDetails

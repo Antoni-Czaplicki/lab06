@@ -95,22 +95,6 @@ public class OfficeService implements IOffice {
     }
 
     /**
-     * After registration, we also send the tanker "rc:tankerId,sewageHost,sewagePort"
-     * so it knows its ID and the sewage plant info.
-     */
-    public void confirmRegistration(int tankerId) {
-        TankerData tanker = tankerMap.get(tankerId);
-        if (tanker == null) return;
-        String request = ProtocolConstants.REQUEST_REGISTER_CONFIRM
-                + tankerId + "," + sewageHost + "," + sewagePort;
-        try {
-            SocketUtils.sendRequest(tanker.host, tanker.port, request);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Helper class to store tanker data in Office.
      */
     public static class TankerData {

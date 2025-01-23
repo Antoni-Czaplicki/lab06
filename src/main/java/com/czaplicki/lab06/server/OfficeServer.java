@@ -11,6 +11,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.function.Consumer;
 
+import static java.lang.System.out;
+
 public class OfficeServer implements Runnable {
 
     private final OfficeService officeService;
@@ -85,8 +87,6 @@ public class OfficeServer implements Runnable {
                 int capacity = Integer.parseInt(parts[2]);
 
                 int tankerId = officeService.registerTanker(host, port, capacity);
-                // Immediately confirm registration to tanker
-                officeService.confirmRegistration(tankerId);
 
                 log("Registered tanker # " + tankerId + " at " + host + ":" + port);
                 return String.valueOf(tankerId);
@@ -120,7 +120,7 @@ public class OfficeServer implements Runnable {
         if (logConsumer != null) {
             logConsumer.accept(msg);
         } else {
-            System.out.println(msg);
+            out.println(msg);
         }
     }
 }

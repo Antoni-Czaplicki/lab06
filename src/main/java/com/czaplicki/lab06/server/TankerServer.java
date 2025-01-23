@@ -52,8 +52,7 @@ public class TankerServer implements Runnable {
                 try (Socket clientSocket = serverSocket.accept();
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(clientSocket.getInputStream()));
-                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true))
-                {
+                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
                     String request = in.readLine();
                     log("Received request: " + request);
                     String response = handleRequest(request);
@@ -83,19 +82,6 @@ public class TankerServer implements Runnable {
                 String houseHost = parts[0];
                 int housePort = Integer.parseInt(parts[1]);
                 tankerService.setJob(houseHost, housePort);
-                return "1";
-            }
-        }
-        // e.g. "rc:tankerId,sewageHost,sewagePort"
-        else if (request.startsWith(ProtocolConstants.REQUEST_REGISTER_CONFIRM)) {
-            String data = request.substring(ProtocolConstants.REQUEST_REGISTER_CONFIRM.length());
-            String[] parts = data.split(",");
-            if (parts.length == 3) {
-                int tId = Integer.parseInt(parts[0]);
-                String sewageHost = parts[1];
-                int sewagePort = Integer.parseInt(parts[2]);
-                tankerService.setTankerId(tId);
-                tankerService.setSewageConnection(sewageHost, sewagePort);
                 return "1";
             }
         }
