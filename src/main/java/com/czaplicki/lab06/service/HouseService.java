@@ -6,9 +6,6 @@ import com.czaplicki.lab06.interfaces.IHouse;
 
 import java.io.IOException;
 
-/**
- * Encapsulates the "House" business logic.
- */
 public class HouseService implements IHouse {
 
     private final String localHost;

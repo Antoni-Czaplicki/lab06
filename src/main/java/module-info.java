@@ -6,8 +6,6 @@ module com.czaplicki.lab06 {
 
     opens com.czaplicki.lab06 to javafx.fxml;
     exports com.czaplicki.lab06;
-    exports com.czaplicki.lab06.objects;
-    opens com.czaplicki.lab06.objects to javafx.fxml;
     exports com.czaplicki.lab06.interfaces;
     opens com.czaplicki.lab06.interfaces to javafx.fxml;
 }
