@@ -95,6 +95,37 @@ public class OfficeService implements IOffice {
     }
 
     /**
+     * Get all tankers volume in the sewage plant.
+     */
+    public String getAllTankersInSewagePlant() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            for (TankerData tanker : tankerMap.values()) {
+                String request = ProtocolConstants.REQUEST_GET_STATUS + tanker.id;
+                String response = SocketUtils.sendRequest(sewageHost, sewagePort, request);
+                sb.append("ID: ").append(tanker.id).append(" Volume: ").append(response).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Payoff all tankers.
+     */
+    public void payoffAll() {
+        for (TankerData tanker : tankerMap.values()) {
+            try {
+                String request = ProtocolConstants.REQUEST_SEWAGE_PAYOFF + tanker.id;
+                SocketUtils.sendRequest(sewageHost, sewagePort, request, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * Helper class to store tanker data in Office.
      */
     public static class TankerData {

@@ -88,14 +88,14 @@ public class SewagePlantServer implements Runnable {
             }
         }
         // gs:tankerId => get status
-        else if (request.startsWith("gs:")) {
+        else if (request.startsWith(ProtocolConstants.REQUEST_GET_STATUS)) {
             String data = request.substring(3);
             int tankerId = Integer.parseInt(data);
             int status = sewageService.getStatus(tankerId);
             return String.valueOf(status);
         }
         // spo:tankerId => set payoff
-        else if (request.startsWith("spo:")) {
+        else if (request.startsWith(ProtocolConstants.REQUEST_SEWAGE_PAYOFF)) {
             String data = request.substring(4);
             int tankerId = Integer.parseInt(data);
             sewageService.setPayoff(tankerId);

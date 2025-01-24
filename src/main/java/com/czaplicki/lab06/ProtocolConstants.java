@@ -11,4 +11,6 @@ public final class ProtocolConstants {
     public static final String REQUEST_SEWAGE_PAYOFF = "spo:";   // e.g. "spo:tankerId"
     public static final String REQUEST_GET_PUMP_OUT = "gp:";   // e.g. "gp:max"
     public static final String REQUEST_SET_JOB = "sj:";   // e.g. "sj:houseHost,housePort"
+    public static final String REQUEST_GET_STATUS = "gs:";   // e.g. "gs:tankerId"
+
 }

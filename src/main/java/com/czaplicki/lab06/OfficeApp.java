@@ -35,6 +35,21 @@ public class OfficeApp extends Application {
         Button stopButton = new Button("Stop Office");
         stopButton.setDisable(true);
 
+        Button payOffButton = new Button("Payoff All");
+        payOffButton.setOnAction(e -> {
+            if (officeService != null) {
+                officeService.payoffAll();
+                updateOfficeDetails();
+            }
+        });
+
+        Button getTankersInSewagePlantButton = new Button("Get Tankers in Sewage Plant");
+        getTankersInSewagePlantButton.setOnAction(e -> {
+            if (officeService != null) {
+                log(officeService.getAllTankersInSewagePlant());
+            }
+        });
+
         officeDetails = new TextArea();
         officeDetails.setEditable(false);
 
@@ -91,6 +106,7 @@ public class OfficeApp extends Application {
                 sewageHostLabel, sewageHostField,
                 sewagePortLabel, sewagePortField,
                 startButton, stopButton,
+                getTankersInSewagePlantButton, payOffButton,
                 new Label("Logs / Details:"),
                 officeDetails
         );

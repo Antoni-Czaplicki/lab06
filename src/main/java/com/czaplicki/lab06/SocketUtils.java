@@ -47,43 +47,6 @@ public class SocketUtils {
     }
 
 
-
-    /**
-     * Rozpoczyna prosty serwer TCP, który nasłuchuje na określonym porcie
-     * i obsługuje przychodzące połączenia za pomocą podanej logiki obsługi.
-     *
-     * @param port        Port, na którym serwer nasłuchuje.
-     * @param requestHandler Funkcja obsługująca żądanie (parametr: żądanie String, zwraca odpowiedź String).
-     */
-    public static void startServer(int port, RequestHandler requestHandler) {
-        new Thread(() -> {
-            try (java.net.ServerSocket serverSocket = new java.net.ServerSocket(port)) {
-                System.out.println("Serwer uruchomiony na porcie " + port);
-                while (true) {
-                    try (Socket clientSocket = serverSocket.accept();
-                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
-
-                        // Odczytanie żądania od klienta
-                        String request = in.readLine();
-                        System.out.println("Otrzymano żądanie: " + request);
-
-                        // Obsługa żądania
-                        String response = requestHandler.handleRequest(request);
-
-                        // Wysłanie odpowiedzi do klienta
-                        out.println(response);
-
-                    } catch (IOException e) {
-                        System.err.println("Błąd obsługi klienta: " + e.getMessage());
-                    }
-                }
-            } catch (IOException e) {
-                System.err.println("Błąd uruchamiania serwera: " + e.getMessage());
-            }
-        }).start();
-    }
-
     /**
      * Wykrywa host lokalny.
      */
