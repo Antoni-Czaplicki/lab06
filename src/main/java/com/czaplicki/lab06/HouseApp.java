@@ -70,8 +70,8 @@ public class HouseApp extends Application {
                         }
                         // produce random amount
                         houseService.produceWaste((int) (Math.random() * 10) + 1);
-                        // if full, order service
-                        if (houseService.isFull()) {
+                        // if almost full, order service
+                        if (houseService.isAlmostFull()) {
                             houseService.orderService();
                         }
                         // update details in UI

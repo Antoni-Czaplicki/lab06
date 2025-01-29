@@ -64,6 +64,10 @@ public class HouseService implements IHouse {
         return currentVolume >= capacity;
     }
 
+    public boolean isAlmostFull() {
+        return currentVolume >= capacity * 0.8;
+    }
+
     public void produceWaste(int amount) {
         currentVolume = Math.min(currentVolume + amount, capacity);
     }
