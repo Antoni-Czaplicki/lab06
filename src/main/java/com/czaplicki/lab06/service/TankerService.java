@@ -58,7 +58,7 @@ public class TankerService implements ITanker {
     public void registerInOffice() throws IOException {
         // For local host, you can also do: SocketUtils.getLocalHost()
         String request = ProtocolConstants.REQUEST_REGISTER
-                + "127.0.0.1" + "," + port + "," + maxCapacity;
+                + "127.0.0.1" + "," + port;
         String response = SocketUtils.sendRequest(officeHost, officePort, request);
         // response is the tankerId
         tankerId = Integer.parseInt(response);

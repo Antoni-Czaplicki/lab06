@@ -127,7 +127,6 @@ public class OfficeApp extends Application {
             sb.append("Tanker #").append(id)
                     .append(" [host=").append(data.host)
                     .append(", port=").append(data.port)
-                    .append(", capacity=").append(data.capacity)
                     .append(", ready=").append(data.ready)
                     .append("]\n");
         });

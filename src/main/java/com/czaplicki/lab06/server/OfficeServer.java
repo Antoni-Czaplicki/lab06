@@ -81,12 +81,11 @@ public class OfficeServer implements Runnable {
         if (request.startsWith(ProtocolConstants.REQUEST_REGISTER)) {
             String data = request.substring(ProtocolConstants.REQUEST_REGISTER.length());
             String[] parts = data.split(",");
-            if (parts.length == 3) {
+            if (parts.length == 2) {
                 String host = parts[0];
-                int port = Integer.parseInt(parts[1]);
-                int capacity = Integer.parseInt(parts[2]);
+                String port = parts[1];
 
-                int tankerId = officeService.registerTanker(host, port, capacity);
+                int tankerId = officeService.register(host, port);
 
                 log("Registered tanker # " + tankerId + " at " + host + ":" + port);
                 return String.valueOf(tankerId);
@@ -98,8 +97,8 @@ public class OfficeServer implements Runnable {
             String[] parts = data.split(",");
             if (parts.length == 2) {
                 String houseHost = parts[0];
-                int housePort = Integer.parseInt(parts[1]);
-                int result = officeService.orderService(houseHost, housePort);
+                String housePort = parts[1];
+                int result = officeService.order(houseHost, housePort);
                 return String.valueOf(result);
             }
         }

@@ -40,25 +40,14 @@ public class OfficeService implements IOffice {
     }
 
     @Override
-    public synchronized int register(String tankerHost, String tankerPortString) {
-        // For backward compatibility, but in practice we might parse capacity or more parameters.
-        // Here we’ll assume we can parse: register(tankerHost, port, capacity).
-        return -1; // not used in the new approach, left for interface compliance
-    }
-
-    public synchronized int registerTanker(String host, int tankerPort, int capacity) {
+    public synchronized int register(String tankerHost, String tankerPort) {
         int tankerId = nextTankerId++;
-        tankerMap.put(tankerId, new TankerData(tankerId, host, tankerPort, capacity));
+        tankerMap.put(tankerId, new TankerData(tankerId, tankerHost, Integer.parseInt(tankerPort)));
         return tankerId;
     }
 
     @Override
-    public synchronized int order(String houseHost, String housePortString) {
-        // Not used in new approach, left for interface compliance
-        return -1;
-    }
-
-    public synchronized int orderService(String houseHost, int housePort) {
+    public synchronized int order(String houseHost, String housePort) {
         for (TankerData tanker : tankerMap.values()) {
             if (tanker.ready) {
                 assignJobToTanker(tanker, houseHost, housePort);
@@ -83,7 +72,7 @@ public class OfficeService implements IOffice {
     /**
      * Assign a job to a specific tanker (telling the tanker to handle that house).
      */
-    private void assignJobToTanker(TankerData tanker, String houseHost, int housePort) {
+    private void assignJobToTanker(TankerData tanker, String houseHost, String housePort) {
         try {
             String request = ProtocolConstants.REQUEST_SET_JOB + houseHost + "," + housePort;
             SocketUtils.sendRequest(tanker.host, tanker.port, request, false);
@@ -132,14 +121,12 @@ public class OfficeService implements IOffice {
         public final int id;
         public final String host;
         public final int port;
-        public final int capacity;
         public boolean ready;
 
-        public TankerData(int id, String host, int port, int capacity) {
+        public TankerData(int id, String host, int port) {
             this.id = id;
             this.host = host;
             this.port = port;
-            this.capacity = capacity;
             this.ready = false;
         }
     }
